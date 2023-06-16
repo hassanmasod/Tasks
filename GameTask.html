@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe Game</title>
+    <style>
+        #gameBoard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            width: 300px;
+            margin: 20px auto;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(0, 72, 197);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        h1,
+        #result {
+            text-align: center;
+            margin-top: 50px;
+            color: rgb(18, 216, 121);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tic Tac Toe Game</h1>
+    <div id="gameBoard">
+        <div class="cell" onclick="makeMove(0, 0)"></div>
+        <div class="cell" onclick="makeMove(0, 1)"></div>
+        <div class="cell" onclick="makeMove(0, 2)"></div>
+        <div class="cell" onclick="makeMove(1, 0)"></div>
+        <div class="cell" onclick="makeMove(1, 1)"></div>
+        <div class="cell" onclick="makeMove(1, 2)"></div>
+        <div class="cell" onclick="makeMove(2, 0)"></div>
+        <div class="cell" onclick="makeMove(2, 1)"></div>
+        <div class="cell" onclick="makeMove(2, 2)"></div>
+    </div>
+    <h1 id="result"></h1>
+
+    <script>
+        let firstPlayer = 'X';
+        let moves = 0;
+        
+        let gameBoard = [
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', '']
+        ];
+        
+        function makeMove(row, col) {
+            if (gameBoard[row][col] === '' && !checkWin() && moves < 9) {
+                gameBoard[row][col] = firstPlayer;
+                document.getElementById('gameBoard').children[row * 3 + col].innerText = firstPlayer;
+
+                if (checkWin()) {
+                    document.getElementById('result').innerText = 'Hurray! Player ' + firstPlayer + ' wins!';
+                } 
+                else {
+                    firstPlayer = firstPlayer === 'X' ? 'O' : 'X';
+                    moves++;
+                }
+
+            }
+            if(moves==9)
+            {
+                document.getElementById('result').innerText = "Game draw!";
+            }
+        }
+        function checkWin() {
+            for (let i = 0; i < 3; i++) {
+                if (gameBoard[i][0] !== '' && gameBoard[i][0] === gameBoard[i][1] && gameBoard[i][0] === gameBoard[i][2]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

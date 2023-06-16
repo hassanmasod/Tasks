@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validationn Form </title>
+</head>
+
+<body>
+    <form action="#" id="formId">
+        <label for="Full name ">Full Name</label>
+        <input type="text" name="fullName" id="fullName" required><br><br>
+
+        <label for="username ">User Name</label>
+        <input type="text" name="userName" id="userName" required><br><br>
+
+        <label for="email ">Email</label>
+        <input type="email" name="email" id="email" required><br><br>
+
+        <label for="phonenumber ">Phone Number</label>
+        <input type="text" name="phoneNumber" id="phoneNumber" placeholder="0312-4567803" pattern="[0-9]{4}-[0-9]{7}"
+            required><br><br>
+
+        <label for="degreeType">Degree Type</label>
+        <select onchange="updateDropdowns()" id="degreeType" required>
+            <option value="">--Select an option--</option>
+            <option value="bachelor">Bachelor</option>
+            <option value="associate">Associate</option>
+            <option value="phd">PHD</option>
+        </select><br><br>
+
+        <label for="degreeDuration">Degree Duration</label>
+        <select id="degreeDuration" required>
+            <option value="">--Select an option--</option>
+        </select><br><br>
+
+        <label for="degreeName">Degree Name</label>
+        <select id="degreeName" required>
+            <option value="">--Select an option--</option>
+        </select><br><br>
+
+        <button type="submit" name="submit" value="Submit" onclick="validation()"> Submit</button>
+    </form>
+    <script>
+
+        function updateDropdowns() {
+            var degreeType = document.getElementById("degreeType");
+            var degreeDuration = document.getElementById("degreeDuration");
+            var degreeName = document.getElementById("degreeName");
+
+            var selectedOption = degreeType.value;
+
+            degreeDuration.innerHTML = "";
+            degreeName.innerHTML = "";
+
+            if (selectedOption === "bachelor") {
+                degreeDuration.innerHTML += "<option value='option2'>4 Years</option>";
+                degreeName.innerHTML += "<option value='phd'>Bsc in Computer Science</option>";
+            } else if (selectedOption === "associate") {
+                degreeDuration.innerHTML += "<option value='option1'>2 Years</option>";
+                degreeName.innerHTML += "<option value='phd'>ADP CS</option>";
+            } else if (selectedOption === "phd") {
+                degreeDuration.innerHTML += "<option value='option1'> 5 Year</option>";
+                degreeName.innerHTML += "<option value='option2'>PHD-IT </option>";
+            }
+        };
+
+        function validation() {
+
+            var userNameType = document.getElementById('userName');
+
+            userNameType.addEventListener("blur", validateUserName());
+
+            function validateUserName() {
+                let userName = userNameType.value.trim();
+                if (userName.includes(" ")) {
+                    window.alert(userName + " ---User Name cannot contain spaces.");
+                    return false;
+                }
+                return true;
+            }
+        };
+
+    </script>
+</body>
+
+</html>
